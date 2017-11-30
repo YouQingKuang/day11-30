@@ -1,0 +1,37 @@
+1.@PersistenceContext（全自动）
+   private EntityManager entityManager;
+	
+	增：entityManager.persist(emp);
+	删：Employees emp = entityManager.find(Employees.class, id);（需要先获取，查）
+	    entityManager.remove(emp);
+	改：Employees emp = entityManager.find(Employees.class, id);
+            emp.setName(name);
+            entityManager.persist(emp);
+
+2.EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpa_link");
+  EntityManager em = emf.createEntityManager();
+  em.getTransaction().begin();（手动开启）
+	
+	增：em.persist(employee);
+	删：Employee employee1 = em.find(Employee.class, "2");
+	    employee1.setName("666");
+            em.remove(employee1);
+	改：Employee employee1 = em.find(Employee.class, "2");
+	    employee1.setName("666");
+	    em.persist(employee1);
+		
+  em.getTransaction().commit();（手动提交）
+  em.close();（手动关闭）
+
+3.创建jpa工程
+      <properties>
+         <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/test1"/>
+         <property name="javax.persistence.jdbc.user" value="root"/>
+         <property name="javax.persistence.jdbc.password" value="123456"/>
+         <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+         <!--  property name="eclipselink.logging.level" value="FINE"-->
+         <property name="eclipselink.ddl-generation" value="create-tables"/>
+      </properties>
+	
+	右键 --> jpa tools
+	
